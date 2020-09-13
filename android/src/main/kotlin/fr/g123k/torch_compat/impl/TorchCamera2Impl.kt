@@ -7,8 +7,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 
 @RequiresApi(Build.VERSION_CODES.M)
-class TorchCamera2Impl(var context: Context) : BaseTorch() {
+class TorchCamera2Impl(context: Context) : BaseTorch() {
 
+    private val context = context;
     private var cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
     private val cameraId = cameraManager.cameraIdList.first { cameraId ->
         cameraManager.getCameraCharacteristics(cameraId)[CameraCharacteristics.FLASH_INFO_AVAILABLE] != null
