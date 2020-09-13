@@ -7,7 +7,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 
 @RequiresApi(Build.VERSION_CODES.M)
-class TorchCamera2Impl(context: Context) : BaseTorch() {
+class TorchCamera2Impl(var context: Context) : BaseTorch() {
 
     private val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
     private val cameraId = cameraManager.cameraIdList.first { cameraId ->
@@ -23,8 +23,12 @@ class TorchCamera2Impl(context: Context) : BaseTorch() {
     }
 
     private fun turn(on: Boolean) {
-        if (cameraId != null) {
-            cameraManager.setTorchMode(cameraId, on)
+        try{
+            if (cameraId != null) {
+                cameraManager.setTorchMode(cameraId, on)
+            }
+        }catch (e: Exception){
+            this.cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         }
     }
 
